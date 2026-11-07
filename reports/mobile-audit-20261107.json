@@ -145,6 +145,52 @@
         "throttlingMethod": "simulate"
       },
       "accessibilityFailures": []
+    },
+    {
+      "label": "production-after",
+      "url": "https://thuispizza.nl/",
+      "fetchTime": "2026-11-07T13:03:25.199Z",
+      "lighthouseVersion": "13.6.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "largest-contentful-paint": {
+          "value": 885.2155,
+          "display": "0.9\u00a0s"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "display": "0\u00a0ms"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "display": "0"
+        }
+      },
+      "settings": {
+        "formFactor": "mobile",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate"
+      },
+      "accessibilityFailures": []
     }
   ]
 }
