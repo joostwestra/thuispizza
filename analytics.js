@@ -121,12 +121,21 @@
     });
   });
 
-  window.pizzaTrack = function (name) {
+  window.pizzaTrack = function (name, item) {
     if (choice !== "granted" || !loaded) return false;
     if (!["dough_calculation_start", "dough_calculation_complete", "merchant_click"].includes(name)) return false;
-    window.gtag("event", name, { page_location: location.origin + location.pathname });
+    const parameters = { page_location: location.origin + location.pathname };
+    if (name === "merchant_click") {
+      if (item !== "baking-steel-original") return false;
+      parameters.item_id = item;
+    }
+    window.gtag("event", name, parameters);
     return true;
   };
+
+  document.querySelectorAll("a[data-merchant]").forEach(link => {
+    link.addEventListener("click", () => window.pizzaTrack("merchant_click", link.dataset.merchant));
+  });
 
   if (choice === "granted") startAnalytics();
   else clearAnalyticsCookies();

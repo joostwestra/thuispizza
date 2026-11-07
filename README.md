@@ -21,3 +21,13 @@ TransIP apex A is now 149.210.159.117 (TTL 300). www remains a CNAME to the apex
 GA4 property 563099391 (account 1962708), stream 16292508367, measurement ID G-KJ7HDK0P9M. Search Console domain property sc-domain:thuispizza.nl was verified through DNS TXT and linked to this stream. Sitemap https://thuispizza.nl/sitemap.xml submitted; Google currently reports "Couldn't fetch" despite successful public HTTPS retrieval. Processing/retry is still pending. No indexing result is claimed.
 
 Live calculator input, analytics rejection, tag loading after consent and withdrawal were checked in Chrome. No Google tag was present before consent; the correct measurement ID loaded after consent. Original cooking photography and documented equipment tests are still pending.
+
+## Organic content release — prepared 7 November 2026
+
+Seventeen public HTML pages. The six guides now include practical procedures, troubleshooting, source lists and links to related tasks. Added calculation method, author and editorial information, sources register, printable unsaved baking log, stone/steel comparison, Baking Steel Original document research and scale selection guide. No hands-on product tests or original cooking photographs are claimed; the owner has no such material available yet.
+
+Calculator: editable water/salt/instant-yeast percentages, source-based short and cold presets, complete total-mass formula including yeast, explicit calculation submit and input validation. The two presets are rounded ratios from the Ooni US recipe pages cited in rekenmethode.html, not an experimentally validated fermentation model. Custom quantities and baking notes never enter Analytics events. Fixed manufacturer-button clicks are product interest, not sales.
+
+Source: edit content/pages.json, then run `python3 scripts/generate_content.py`. Verification: `python3 scripts/check_content.py`, `node tests/calculator.cjs`, `node tests/analytics.cjs`, JavaScript syntax and `git diff --check`. Desktop and 390px Chrome checks covered presets, custom input, invalid input and article layout; no horizontal page overflow on the calculator. Consent tests cover expiry, withdrawal, local exclusion, event allowlisting and input filtering. No Lighthouse scores or field performance results claimed.
+
+Deployment of this update requires the same owner sudo step as the initial installation. Build/upload alone does not change the active release. Original cooking photography, recorded baking experiments and actual Google indexing remain separate outstanding work.
