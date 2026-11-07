@@ -31,3 +31,9 @@ Calculator: editable water/salt/instant-yeast percentages, source-based short an
 Source: edit content/pages.json, then run `python3 scripts/generate_content.py`. Verification: `python3 scripts/check_content.py`, `node tests/calculator.cjs`, `node tests/analytics.cjs`, JavaScript syntax and `git diff --check`. Desktop and 390px Chrome checks covered presets, custom input, invalid input and article layout; no horizontal page overflow on the calculator. Consent tests cover expiry, withdrawal, local exclusion, event allowlisting and input filtering. No Lighthouse scores or field performance results claimed.
 
 Deployment of this update requires the same owner sudo step as the initial installation. Build/upload alone does not change the active release. Original cooking photography, recorded baking experiments and actual Google indexing remain separate outstanding work.
+
+### Organic release activated
+
+The owner activated `18c4f814a309632f4e877d94676cd2f8b028a2d9`. All 25 published assets match SHA-256 checksums both on the VPS and over public HTTPS; the live cold preset was exercised. Sitemap now contains 17 URLs. Previous release retained.
+
+Google live URL inspection on 7 November 2026 at 13:43 Amsterdam time reported `Failed: Robots.txt unreachable`; URL not indexed. Public robots.txt returns HTTPS 200 with text/plain and Allow: /, including with a Googlebot user agent; HTTP redirects to HTTPS. Google's robots report currently says no file and disables its report/recrawl button. This identifies a fetch failure, not a confirmed rules or content problem. The cause is not established; no speculative hosting or DNS changes made. Search processing remains unresolved and must be checked again after Google retries. A successful sitemap submission alone is not successful crawling or indexing.
