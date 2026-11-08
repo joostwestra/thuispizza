@@ -49,3 +49,9 @@ Checks also include tests/recipe-actions.cjs for stale results, clipboard denial
 ### Usability release activated and verified
 
 Owner activated `1e3d892b012194740ec278bc13e7ee8e257943bd`. All 25 public HTTPS assets match the release manifest. Live title, copy control and print-control presence checked in Chrome; copy confirmed successful. Final production mobile Lighthouse audit scored 100 performance / 100 accessibility / 100 best practices / 100 SEO, with LCP 0.9 s, TBT 0 ms and CLS 0. Single lab measurement, not field data or proof of ranking eligibility. Raw final report: /tmp/thuispizza-mobile-live-after.json; summary appended to reports/mobile-audit-20261107.json. Previous release preserved.
+
+## Google crawl follow-up — 8 November 2026
+
+Search Console now reports both HTTP and HTTPS robots.txt as fetched, with 66 bytes and no issues. Requested one HTTPS robots recrawl; Google confirmed "Recrawl request sent". The homepage live test at 10:42 Amsterdam time passed: "URL is available to Google" and "Page can be indexed". Requested homepage indexing once; Google confirmed "Indexing requested" and addition to a priority crawl queue. This confirms successful live fetching and an accepted request, not completed indexing.
+
+The sitemap report still shows "Couldn't fetch", unknown type and zero discovered pages. It was not resubmitted again. Public homepage, robots.txt and the 17-URL sitemap return HTTPS 200; HTTP robots redirects with 308. Google DNS returns the expected A record with DNSSEC validation. Caddy is active; its readable configuration has no crawl-specific restriction. No configuration or security changes were needed. The one-time scheduled follow-up is complete and removed; no owner action is currently required.
