@@ -91,3 +91,11 @@ Deployment still uses the existing versioned release archive and atomic activati
 Owner activated `54f8f56c2bafc5b2295be3e75a605668f7fc2c82` on 13 November 2026. The VPS documentroot resolves to that versioned release, and all 27 deployed assets match the archive manifest on disk and over public HTTPS (HTTP 200 with normal certificate validation). The public deployment manifest also matches. Previous release `1e3d892b012194740ec278bc13e7ee8e257943bd` remains available for rollback.
 
 Production Chrome checks exercised both new tools: the water comparison returns 300 → 325 g for 500 g flour at 60 → 65%, and the cold-proof planner produces the expected 24-hour fridge / 5-hour final-phase timeline. Live screenshot: `/tmp/thuispizza-guides-live-20261113.png`; HTTPS verification details: `/tmp/thuispizza-guides-live-verification.json`. No further activation step is pending. This activation note changes documentation only; the published assets remain exactly those of source release `54f8f56`.
+
+## Hermie application rejected — confirmed 14 November 2026
+
+Daisycon notification `3159339`, dated **10 November 2026 at 15:31** as displayed in the dashboard, explicitly states that media **Thuispizza.nl (446434)** was disapproved for **Hermie (20097)**. The campaign's current Subscriptions section independently shows **Disapproved** for that media. This supersedes the pending status recorded during the 9 November application.
+
+Neither the notification nor the inspected campaign details provides a rejection reason. The reason is unknown; do not infer that traffic, AI assistance, site quality or category fit caused it. A reason/reconsideration request to the advertiser would be the next step; no message, appeal or new application has been sent. The guides were materially updated after the rejection, on 13 November, but this does not guarantee reconsideration or acceptance.
+
+Keep Hermie affiliate links inactive. Any future integration still requires explicit approval for this media and actual media-specific tracking links. No public site changes or VPS deployment were needed for this status check. Account notification: https://my.daisycon.com/publisher/notifications/3159339 . Local evidence screenshot: `/tmp/thuispizza-daisycon-disapproval-20261114.png`.
