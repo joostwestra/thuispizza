@@ -28,3 +28,14 @@
 .guide-tool .button{font:600 16px system-ui;border:0;cursor:pointer;margin-top:0}.recipe-table th,.recipe-table td{min-width:0;padding:12px 9px;font-size:14px}.recipe-table td{white-space:nowrap}.recipe-table tbody th{font-weight:600}
 .recipe-table td:first-child{white-space:normal}
 .recipe-table{table-layout:fixed}.recipe-table th,.recipe-table td{overflow-wrap:anywhere}
+
+/* Large shaping illustrations keep the complete hands and dough in view. */
+.shape-lead{padding:18px 20px;background:#eef1e8;border-left:4px solid #315a3a}
+.shape-walkthrough{list-style:none;padding:0;margin:26px 0}
+.article .shape-walkthrough>li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start;margin:0;padding:25px 0;border-bottom:1px solid #deded3;scroll-margin-top:24px}
+.shape-figure{margin:0;min-width:0}.shape-image{position:relative}.shape-image img{display:block;width:100%;height:auto;border-radius:9px;background:#f7f3e9}.shape-figure figcaption{margin-top:8px;line-height:1.5}
+.shape-instruction{min-width:0}.shape-instruction h3{margin-top:0}.article .shape-instruction p{margin:12px 0;font-size:16px}.shape-check{padding:12px;background:#f0f3e9;border-radius:6px}
+.shape-turn{position:absolute;right:10px;top:10px;width:58px;height:58px;padding:7px;color:#315a3a;background:#fffdf8eb;border-radius:50%}
+@media(max-width:600px){.article .shape-walkthrough>li{grid-template-columns:1fr;gap:18px;padding:22px 0}.shape-instruction h3{font-size:22px}.shape-turn{width:54px;height:54px}}
+@media print{.article .shape-walkthrough>li{break-inside:avoid}.shape-figure{max-width:280px}}
+.toc-compact{border:0;padding:0 20px}.toc-compact>summary{padding:14px 0}.toc-compact nav{display:block}.toc-compact ul{margin:0;padding-bottom:15px}

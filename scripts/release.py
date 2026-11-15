@@ -16,7 +16,7 @@ def sha(data):
 
 
 def valid(name):
-    return bool(re.fullmatch(r'[A-Za-z0-9-]+\.(html|css|js|svg|txt|xml)', name))
+    return bool(re.fullmatch(r'[A-Za-z0-9-]+\.(html|css|js|svg|txt|xml|jpg)', name))
 
 
 def build(destination):

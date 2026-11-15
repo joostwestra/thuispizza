@@ -20,6 +20,8 @@ for slug,page in pages.items():
   text=m[1];anchor=re.sub(r'[^a-z0-9]+','-',text.lower()).strip('-');headings.append((anchor,text));return f'<h2 id="{anchor}">{text}</h2>'
  body=re.sub(r'<h2>(.*?)</h2>',heading,body)
  toc='<nav class="toc" aria-label="Op deze pagina"><strong>Op deze pagina</strong><ul>'+''.join(f'<li><a href="#{anchor}">{text}</a></li>' for anchor,text in headings)+'</ul></nav>' if len(headings)>2 else ''
+ if page.get('compact_toc') and toc:
+  toc='<details class="toc toc-compact"><summary>Op deze pagina</summary>'+toc.replace(' class="toc"','').replace('<strong>Op deze pagina</strong>','')+'</details>'
  source_items=[]
  for url,label,*source_date in page['sources']:
   consulted=' — '+dutch_date(source_date[0]) if source_date else ''
@@ -30,6 +32,8 @@ for slug,page in pages.items():
   +'<a href="redactioneel-beleid.html">bronnen en eigen ervaring onderscheiden</a>.</p></section>') if page['sources'] else ''
  related='<aside class="related"><h2>Lees verder</h2><ul>'+''.join(f'<li><a href="{s}.html">{html.escape(pages[s]["title"])}</a></li>' for s in page['related'])+'</ul></aside>'
  schema={'@context':'https://schema.org','@type':'Article','headline':page['title'],'description':page['intro'],'datePublished':DATE,'dateModified':updated,'author':{'@type':'Person','name':'Joost Westra','url':'https://thuispizza.nl/over-ons.html'},'mainEntityOfPage':'https://thuispizza.nl/'+slug+'.html','inLanguage':'nl-NL'}
+ if page.get('images'):
+  schema['image']=['https://thuispizza.nl/'+name for name in page['images']]
  scripts=''.join(f'<script src="{html.escape(script,quote=True)}"></script>' for script in page.get('scripts',[]))
  markup=f'''<!doctype html>
 <html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title} | thuispizza.nl</title><meta name="description" content="{intro}"><link rel="canonical" href="https://thuispizza.nl/{slug}.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"><script type="application/ld+json">{json.dumps(schema,ensure_ascii=False).replace('<','&lt;')}</script></head><body>{header}<main id="main" class="article"><article><p class="eyebrow">Praktisch thuis pizza maken</p><h1>{title}</h1><p class="intro">{intro}</p><p class="byline">Redactie: <a rel="author" href="over-ons.html">Joost Westra</a> · Bijgewerkt <time datetime="{updated}">{dutch_date(updated)}</time></p>{toc}{body}{sources}</article>{related}</main>{footer}{scripts}<script src="analytics.js"></script></body></html>'''
