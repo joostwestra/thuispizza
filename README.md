@@ -119,3 +119,9 @@ The three website JPEGs are 1024×768, approximately 681 KiB combined. Dimension
 Validation: all 17 pages pass the content/link/metadata checker; existing calculator, guide-tools, analytics and recipe-action suites pass. Additional checks cover image/schema agreement, contextual destinations, deterministic generation and allowed/rejected archive names. Chrome inspection at desktop width and 390px confirmed all three images load with correct aspect ratio and no horizontal page overflow. Both new contextual guide links were followed to the intended section; expandable contents menu was exercised. Preview evidence: `/tmp/thuispizza-ai-vormengids-20261115.png`.
 
 The prepared release still needs owner sudo activation on the existing VPS. A versioned copy of the release installer accompanies it to support the JPEG assets; the current installer and active release remain available. Build/upload alone does not activate the revised guide.
+
+### Illustrated shaping release activated and verified
+
+Owner activated `294749c189b0c2bf74cb03adb559f0a8d3d8c03a` on 15 November 2026. The VPS documentroot resolves to this release. All 30 assets match the archive manifest both on the VPS and over public HTTPS (HTTP 200 with normal certificate validation), and the public deployment manifest matches the tested archive. All three illustrations are served as `image/jpeg`. The existing desktop/mobile layout and contextual-link checks were performed before release; the publicly served files match those checked files byte for byte.
+
+Previous release `54f8f56c2bafc5b2295be3e75a605668f7fc2c82` is retained. Public verification details: `/tmp/thuispizza-shaping-live-verification.json`. No activation step remains pending. This note changes documentation only; published site assets remain those of source release `294749c`.
