@@ -26,8 +26,10 @@ function setup(kind, values) {
   for(const e of form.elements) form.elements[e.name]=e;
   const tool = {dataset:{guideTool:kind},querySelector(selector){return selector==='form'?form:output;}};
   const document = {querySelectorAll(){return [tool];},createElement(tag){return {tag,children:[],append(child){this.children.push(child);}};}};
-  vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../guide-tools.js'),'utf8'),{window:{pizzaGuideMath:math},document,Intl,Date,RangeError});
-  return {form,output,submit(){form.events.submit({preventDefault(){}});}};
+  const events = [];
+  const window = {pizzaGuideMath:math, pizzaTrack:(...args) => events.push(args)};
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../guide-tools.js'),'utf8'),{window,document,Intl,Date,RangeError});
+  return {form,output,events,submit(){form.events.submit({preventDefault(){}});}};
 }
 const w = setup('water',{flour:500,from:60,to:65});
 assert.equal(w.form.hidden,false);
@@ -35,9 +37,15 @@ w.submit();assert.match(w.output.textContent,/25 g extra water/);
 w.form.events.input();assert.doesNotMatch(w.output.textContent,/325/);
 assert.match(w.output.textContent,/Bereken opnieuw/);
 w.form.elements.flour.valueAsNumber=NaN;w.submit();assert.match(w.output.textContent,/Controleer/);
+assert.deepEqual(w.events,[['water_comparison_complete']]);
 const t = setup('planning',input);
 t.form.elements.bake.value=input.bake;t.submit();
 assert.equal(t.output.children[0].children.length,5);
 assert.match(t.output.children[0].children[0].textContent,/13 november 2026/);
 t.form.events.input();assert.equal(t.output.children.length,0);
+assert.deepEqual(t.events,[['rise_plan_complete']]);
+t.form.reportValidity = () => false;
+t.submit();
+assert.deepEqual(t.events,[['rise_plan_complete']]);
 console.log('PASS: water differences, date rollover, invalid input, DST, timeline rendering and stale-result clearing');
+console.log('PASS: exactly one parameter-free tracking call per successful calculation');

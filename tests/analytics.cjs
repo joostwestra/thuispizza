@@ -27,6 +27,19 @@ const blocked=run({blocked:true});blocked.buttons[1].click();assert.equal(blocke
 const funnel=run({choice:'granted'}); assert.equal(funnel.window.pizzaTrack('dough_calculation_start'),true); assert.equal(funnel.window.pizzaTrack('dough_calculation_complete'),true); assert.equal(funnel.window.pizzaTrack('free_text_secret'),false); assert.equal(funnel.calls.filter(c=>c[0]==='event').length,2);
 console.log('PASS: consent, expiry, withdrawal, local exclusion, event allowlist and private input filtering');
 
+const guideEvents = ['rise_plan_complete', 'water_comparison_complete'];
+const guides = run();
+for (const event of guideEvents) assert.equal(guides.window.pizzaTrack(event), false);
+guides.buttons[1].click();
+for (const event of guideEvents) assert.equal(guides.window.pizzaTrack(event, 'visitor-input'), true);
+guides.buttons[0].click();
+for (const event of guideEvents) assert.equal(guides.window.pizzaTrack(event), false);
+assert.deepEqual(
+  guides.calls.filter(call => call[0] === 'event').map(([, event, parameters]) => [event, {...parameters}]),
+  guideEvents.map(event => [event, {page_location:'https://thuispizza.nl/index.html'}])
+);
+console.log('PASS: guide completion events require consent and send only the page URL');
+
 const merchant=run({choice:'granted'});
 assert.equal(merchant.window.pizzaTrack('merchant_click','baking-steel-original'),true);
 assert.equal(merchant.window.pizzaTrack('merchant_click','visitor-input'),false);

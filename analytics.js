@@ -123,7 +123,13 @@
 
   window.pizzaTrack = function (name, item) {
     if (choice !== "granted" || !loaded) return false;
-    if (!["dough_calculation_start", "dough_calculation_complete", "merchant_click"].includes(name)) return false;
+    if (![
+      "dough_calculation_start",
+      "dough_calculation_complete",
+      "rise_plan_complete",
+      "water_comparison_complete",
+      "merchant_click"
+    ].includes(name)) return false;
     const parameters = { page_location: location.origin + location.pathname };
     if (name === "merchant_click") {
       if (item !== "baking-steel-original") return false;

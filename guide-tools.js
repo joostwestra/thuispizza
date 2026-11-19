@@ -49,7 +49,9 @@
         }
       } catch (error) {
         output.textContent = error instanceof RangeError ? error.message : 'Berekenen lukt niet. Gebruik het rekenvoorbeeld hierboven.';
+        return;
       }
+      window.pizzaTrack?.(kind === 'water' ? 'water_comparison_complete' : 'rise_plan_complete');
     });
     form.hidden = false;
   });
