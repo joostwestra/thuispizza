@@ -5,6 +5,7 @@ import html,json,re
 ROOT=Path(__file__).resolve().parent.parent
 pages=json.loads((ROOT/'content/pages.json').read_text())
 DATE='2026-11-07'
+HOME_UPDATED='2026-11-19'
 def dutch_date(value):
  year,month,day=map(int,value.split('-'))
  months=('januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december')
@@ -15,6 +16,10 @@ for slug,page in pages.items():
  updated=page.get('updated',DATE)
  checked=page.get('sources_checked',DATE)
  title=html.escape(page['title']);intro=html.escape(page['intro']);body=page['body']
+ quick_link=''
+ if page.get('quick_link'):
+  href,label=page['quick_link']
+  quick_link=f'<p><a href="{html.escape(href,quote=True)}">{html.escape(label)}</a></p>'
  headings=[]
  def heading(m):
   text=m[1];anchor=re.sub(r'[^a-z0-9]+','-',text.lower()).strip('-');headings.append((anchor,text));return f'<h2 id="{anchor}">{text}</h2>'
@@ -36,8 +41,10 @@ for slug,page in pages.items():
   schema['image']=['https://thuispizza.nl/'+name for name in page['images']]
  scripts=''.join(f'<script src="{html.escape(script,quote=True)}"></script>' for script in page.get('scripts',[]))
  markup=f'''<!doctype html>
-<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title} | thuispizza.nl</title><meta name="description" content="{intro}"><link rel="canonical" href="https://thuispizza.nl/{slug}.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"><script type="application/ld+json">{json.dumps(schema,ensure_ascii=False).replace('<','&lt;')}</script></head><body>{header}<main id="main" class="article"><article><p class="eyebrow">Praktisch thuis pizza maken</p><h1>{title}</h1><p class="intro">{intro}</p><p class="byline">Redactie: <a rel="author" href="over-ons.html">Joost Westra</a> · Bijgewerkt <time datetime="{updated}">{dutch_date(updated)}</time></p>{toc}{body}{sources}</article>{related}</main>{footer}{scripts}<script src="analytics.js"></script></body></html>'''
+<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title} | thuispizza.nl</title><meta name="description" content="{intro}"><link rel="canonical" href="https://thuispizza.nl/{slug}.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"><script type="application/ld+json">{json.dumps(schema,ensure_ascii=False).replace('<','&lt;')}</script></head><body>{header}<main id="main" class="article"><article><p class="eyebrow">Praktisch thuis pizza maken</p><h1>{title}</h1><p class="intro">{intro}</p><p class="byline">Redactie: <a rel="author" href="over-ons.html">Joost Westra</a> · Bijgewerkt <time datetime="{updated}">{dutch_date(updated)}</time></p>{quick_link}{toc}{body}{sources}</article>{related}</main>{footer}{scripts}<script src="analytics.js"></script></body></html>'''
  (ROOT/(slug+'.html')).write_text(markup+'\n')
 urls=['']+[p.name for p in sorted(ROOT.glob('*.html')) if p.name not in ('index.html','404.html')]
-(ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'  <url><loc>https://thuispizza.nl/{url}</loc><lastmod>{pages.get(url.removesuffix('.html'),{}).get('updated',DATE)}</lastmod></url>\n' for url in urls)+'</urlset>\n')
+last_modified={slug+'.html':page.get('updated',DATE) for slug,page in pages.items()}
+last_modified['']=HOME_UPDATED
+(ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'  <url><loc>https://thuispizza.nl/{url}</loc><lastmod>{last_modified.get(url,DATE)}</lastmod></url>\n' for url in urls)+'</urlset>\n')
 print('Rendered',len(pages),'articles;',len(urls),'sitemap URLs')
